@@ -37,9 +37,9 @@
             android:id="@+id/editText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:saveEnabled="false"
             android:ems="10"
-            android:inputType="text"
+            android:inputType="text|textWebEditText"
+            android:saveEnabled="false"
             android:text="https://www.cs.pub.ro" >
 
             <requestFocus />
@@ -49,8 +49,9 @@
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pass"
-            android:background="@color/green" />
+            android:background="@color/green"
+            android:clickable="false"
+            android:text="Pass" />
 
     </LinearLayout>
 
