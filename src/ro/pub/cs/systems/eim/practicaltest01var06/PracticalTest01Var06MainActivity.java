@@ -1,6 +1,7 @@
 package ro.pub.cs.systems.eim.practicaltest01var06;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class PracticalTest01Var06MainActivity extends Activity {
+	
+	private final static int SECONDARY_ACTIVITY_REQUEST_CODE = 1;
 	
 	private EditText topText = null;
 	private EditText addressText = null;
@@ -40,6 +43,24 @@ public class PracticalTest01Var06MainActivity extends Activity {
 	        	  clicked = false;
 	        	  break;
 	          }
+	        case R.id.button3:
+	            Intent intent = new Intent(getApplicationContext(), PracticalTest01Var06SecondaryActivity.class);
+	            
+	            String addressText1 = addressText.toString();
+	            String validated = null;
+	            if (button2.getText() == "Pass") {
+	            	validated = "Address validated!";
+	            } else {
+	            	if (button2.getText() == "Fail") {
+	            		validated = "Address not validated!";
+	            	}
+	            }
+	            
+	            intent.putExtra("addressText", addressText1);
+	            intent.putExtra("validated", validated);
+	            
+	            startActivityForResult(intent, SECONDARY_ACTIVITY_REQUEST_CODE);
+	            break;
 	      }
 	    }
 	}
@@ -89,6 +110,10 @@ public class PracticalTest01Var06MainActivity extends Activity {
 		button2 = (Button)findViewById(R.id.button2);
 		navigateToSecondaryActivityButton = (Button)findViewById(R.id.button3);
 		
+		button1.setOnClickListener(buttonClickListener);
+		button2.setOnClickListener(buttonClickListener);
+		navigateToSecondaryActivityButton.setOnClickListener(buttonClickListener);
+		
 		if (savedInstanceState != null) {
 	      if (savedInstanceState.containsKey("leftCount")) {
 	        topText.setText(savedInstanceState.getString("topText"));
@@ -108,12 +133,18 @@ public class PracticalTest01Var06MainActivity extends Activity {
 		Toast.makeText(this, "Top Text: " + topText + "; AddressText: " + addressText, Toast.LENGTH_LONG).show();
 	}
 	
+	@Override
+	  protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+	    if (requestCode == SECONDARY_ACTIVITY_REQUEST_CODE) {
+	      Toast.makeText(this, "The activity returned with result " + resultCode, Toast.LENGTH_LONG).show();
+	    }
+	  }
 
-	  @Override
-	  protected void onSaveInstanceState(Bundle savedInstanceState) {
+	@Override
+	protected void onSaveInstanceState(Bundle savedInstanceState) {
 	    savedInstanceState.putString("topText", topText.getText().toString());
 	    savedInstanceState.putString("addressText", addressText.getText().toString());
-	  }
+	}
 	  
 	  @Override
 	  protected void onRestoreInstanceState(Bundle savedInstanceState) {
