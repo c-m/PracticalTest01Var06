@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class PracticalTest01Var06MainActivity extends Activity {
 	
@@ -104,7 +105,7 @@ public class PracticalTest01Var06MainActivity extends Activity {
 	      addressText.setText("https://www.cs.pub.ro");
 	    }
 		
-		
+		Toast.makeText(this, "Top Text: " + topText + "; AddressText: " + addressText, Toast.LENGTH_LONG).show();
 	}
 	
 
